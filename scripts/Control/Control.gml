@@ -13,9 +13,10 @@ function ControlCreate()
 	gameGrid = ds_grid_create(19, 11);
 	ds_grid_clear(gameGrid, GRID.AUCUN);
 	
-	 ControlCreateObject(oSurfaceRiviere, oRiviere, "Riviere", GRID.RIVIERE);
-	 ControlCreateObject(oSurfaceGraine, oGraine, "Graine", GRID.GRAINE);
-	 ControlCreateObject(oSurfaceEcluse, oEcluse, "Riviere", GRID.ECLUSE);
+	ControlCreateObject(oSurfaceRiviere, oRiviere, "Riviere");
+	ControlCreateObject(oSurfaceGraine, oGraine, "Graine");
+	ControlCreateObject(oSurfaceEcluse, oEcluse, "Ecluse");
+	ControlCreateObject(oSurfaceCascade, oCascade, "Cascade");
 }
 
 function ControlStep()
@@ -33,11 +34,11 @@ function ControlGetGameGrid()
 	return oControl.gameGrid;
 }
 
-function ControlCreateObject(_surface, _object, _layer, _value)
+function ControlCreateObject(_surface, _object, _layer)
 {
 	with (_surface)
 	{
-		var _posRiviere = GridGetPosition(ControlGetGameGrid(), x, y);
+		var _posRiviere = GridGetPosition(x, y);
 		var _xRiviere = _posRiviere[0];
 		var _yRiviere = _posRiviere[1];
 		
@@ -47,22 +48,34 @@ function ControlCreateObject(_surface, _object, _layer, _value)
 		{
 			for (var _i = 0; _i < _scale; _i++)
 			{
-				instance_create_layer(x + _i * GRID_SIZE, y, _layer, _object);
-				ds_grid_set(ControlGetGameGrid(), _xRiviere + _i, _yRiviere, _value);
+				var _inst = instance_create_layer(x + _i * GRID_SIZE, y, _layer, _object);
+				
+				if (ds_grid_get(ControlGetGameGrid(), _xRiviere + _i, _yRiviere) == GRID.AUCUN)
+				{
+					ds_grid_set(ControlGetGameGrid(), _xRiviere + _i, _yRiviere, _inst.id);
+				}
 			}
 		}
 		else if (image_xscale < image_yscale)
 		{
 			for (var _i = 0; _i < _scale; _i++)
 			{
-				instance_create_layer(x, y + _i * GRID_SIZE, _layer, _object);
-				ds_grid_set(ControlGetGameGrid(), _xRiviere, _yRiviere + _i, _value);
+				var _inst = instance_create_layer(x, y + _i * GRID_SIZE, _layer, _object);
+				
+				if (ds_grid_get(ControlGetGameGrid(), _xRiviere, _yRiviere + _i) == GRID.AUCUN)
+				{
+					ds_grid_set(ControlGetGameGrid(), _xRiviere, _yRiviere + _i, _inst.id);
+				}
 			}
 		}
 		else
 		{
-			instance_create_layer(x, y, "Riviere", _object);
-			ds_grid_set(ControlGetGameGrid(), _xRiviere, _yRiviere, _value);
+			var _inst = instance_create_layer(x, y, "Riviere", _object);
+			
+			if (ds_grid_get(ControlGetGameGrid(), _xRiviere, _yRiviere) == GRID.AUCUN)
+			{
+				ds_grid_set(ControlGetGameGrid(), _xRiviere, _yRiviere, _inst.id);
+			}
 		}
 	}
 }

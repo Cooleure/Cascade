@@ -1,42 +1,42 @@
-//enum RIVIERE_STATE
-//{
-//	SEC,
-//	REMPLISSAGE,
-//	REMPLI,
-//	VIDAGE
-//};
+enum GRAINE_STATE
+{
+	VIDE,
+	POUSSE,
+	MATURITE,
+	COUPE
+};
 
-//function RiviereInit()
-//{
-//	SetState(RIVIERE_STATE.SEC);
-//	stateMachine[0] = RiviereStateSec;
-//	stateMachine[1] = RiviereStateRemplissage;
-//	stateMachine[2] = RiviereStateRempli;
-//	stateMachine[3] = RiviereStateVidage;
-//}
+function GraineInit()
+{
+	SetState(GRAINE_STATE.VIDE);
+	stateMachine[0] = GraineStateVide;
+	stateMachine[1] = GraineStatePousse;
+	stateMachine[2] = GraineStateMaturite;
+	stateMachine[3] = GraineStateCoupe;
+}
 
-//function RiviereUpdate()
-//{
-//	script_execute(stateMachine[state]);
-//}
+function GraineUpdate()
+{
+	script_execute(stateMachine[state]);
+}
 
 
-//function RiviereStateSec()
-//{
+function GraineStateVide()
+{
 	
-//}
+}
 
-//function RiviereStateRemplissage()
-//{
-	
-//}
+function GraineStatePousse()
+{
 
-//function RiviereStateRempli()
-//{
-	
-//}
+}
 
-//function RiviereStateVidage()
-//{
+function GraineStateMaturite()
+{
+
+}
+
+function GraineStateCoupe()
+{
 	
-//}
+}

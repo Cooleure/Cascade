@@ -1,12 +1,16 @@
-function GridGetPosition(_gameGrid, _x, _y) // Coordonées en pixel
+function GridGetPosition(_x, _y) // Coordonées en pixel
 {
 	return [_x div GRID_SIZE, _y div GRID_SIZE];
 }
 
-function GridGetCoord(_gameGrid, _x, _y) // Position
+
+
+function GridGetCoord(_x, _y) // Position
 {
 	return [_x * GRID_SIZE, _y * GRID_SIZE];
 }
+
+
 
 function GridDraw(_gameGrid, _size)
 {
@@ -27,4 +31,20 @@ function GridDraw(_gameGrid, _size)
 			draw_text(_i * _size, _j * _size, ds_grid_get(_gameGrid, _i, _j));
 		}
 	}
+}
+
+function GridGetVoisins(_x, _y)
+{
+	var _voisins = array_create(4);
+
+	var _pos = GridGetPosition(_x, _y);
+	var _xPos = _pos[0];
+	var _yPos = _pos[1];
+			
+	_voisins[0] = ds_grid_get(ControlGetGameGrid(), _xPos + 1, _yPos);
+	_voisins[1] = ds_grid_get(ControlGetGameGrid(), _xPos, _yPos + 1);
+	_voisins[2] = ds_grid_get(ControlGetGameGrid(), _xPos - 1, _yPos);
+	_voisins[3] = ds_grid_get(ControlGetGameGrid(), _xPos, _yPos - 1);
+
+	return _voisins;
 }
