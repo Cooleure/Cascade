@@ -13,6 +13,8 @@ function CascadeStep()
 	{
 		var _voisin = _voisins[_i];
 		
+		if (_voisin == GRID.AUCUN) continue;
+		
 		if ((_voisin.object_index == oRiviere) and IsState(RIVIERE_STATE.SEC, _voisin) and (portee < porteeMax))
 		{
 			SetState(RIVIERE_STATE.REMPLISSAGE, _voisin);

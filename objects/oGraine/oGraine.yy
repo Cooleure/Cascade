@@ -5,7 +5,10 @@
   },
   "solid": false,
   "visible": true,
-  "spriteMaskId": null,
+  "spriteMaskId": {
+    "name": "sTileHerbe",
+    "path": "sprites/sTileHerbe/sTileHerbe.yy",
+  },
   "persistent": false,
   "parentObjectId": null,
   "physicsObject": false,

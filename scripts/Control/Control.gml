@@ -22,17 +22,21 @@ function ControlCreate()
 	
 	scoring = 0;
 	
-	cursor_sprite = sMain;
+	audio_play_sound(sndEau, 10, true);
+	audio_play_sound(sndMusique, 10, true);
+	
+	instance_create_layer(mouse_x, mouse_y, "Control", oCurseur);
 }
 
 function ControlStep()
 {
+	
 }
 
 function ControlDrawGUI()
 {
-	GridDraw(gameGrid, GRID_SIZE);
-	draw_text(10, 10, scoring);
+	//GridDraw(gameGrid, GRID_SIZE);
+	//draw_text(10, 10, scoring);
 }
 
 function ControlGetGameGrid()

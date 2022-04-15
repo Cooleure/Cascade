@@ -76,8 +76,9 @@ function GraineStateVide()
 	}
 	
 	timer = 0;
-	sprite = spritePousse;
 	
+	sprite = sVide;
+
 	SetState(GRAINE_STATE.POUSSE);
 }
 
@@ -98,33 +99,24 @@ function GraineStatePousse()
 		}
 	}
 	
-	if (timer >= duree * room_speed)
+	if (timer > (duree * room_speed) div 2)
 	{
-		SetState(GRAINE_STATE.MATURITE);
-	}
-	
-	if (collision_point(mouse_x, mouse_y, self, false, false))
-	{
-		cursor_sprite = sCurseurFaux;
+		sprite = spritePousse;
 	}
 	else
 	{
-		cursor_sprite = sMain;
+		sprite = sVide;
+	}
+	
+	if (timer >= duree * room_speed)
+	{
+		SetState(GRAINE_STATE.MATURITE);
 	}
 }
 
 function GraineStateMaturite()
 {
 	sprite = spriteMaturite;
-	
-	if (collision_point(mouse_x, mouse_y, self, false, false))
-	{
-		cursor_sprite = sCurseurFaux;
-	}
-	else
-	{
-		cursor_sprite = sMain;
-	}
 }
 
 function GraineStateCoupe()
@@ -148,13 +140,14 @@ function GraineMouseLeftPressed()
 	{
 		SetState(GRAINE_STATE.COUPE);
 		alarm[0] = 10 * room_speed;
+		audio_play_sound(sndCoupe, 10, false);
 	}
 	else if (IsState(GRAINE_STATE.MATURITE))
-	{
-		
+	{		
 		oControl.scoring += scoring;
 		oControl.scoring = clamp(oControl.scoring, 0, infinity);
 		SetState(GRAINE_STATE.COUPE);
 		alarm[0] = 10 * room_speed;
+		audio_play_sound(sndCoupe, 10, false);
 	}
 }

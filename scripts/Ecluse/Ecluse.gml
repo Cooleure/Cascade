@@ -92,12 +92,19 @@ function EcluseMouseLeftPressed()
 {
 	if (coolDown)
 	{
+		var _id = irandom(1);
+		
 		if (IsState(ECLUSE_STATE.FERME))
 		{
+			if (_id == 0) audio_play_sound(sndOuverture1, 10, false);
+			else audio_play_sound(sndOuverture2, 10, false);
+			
 			SetState(ECLUSE_STATE.OUVERT_SEC);
 		}
 		else
 		{
+			if (_id == 0) audio_play_sound(sndFermeture1, 10, false);
+			else audio_play_sound(sndFermeture2, 10, false);
 			SetState(ECLUSE_STATE.FERME);
 		}
 		coolDown = false;
