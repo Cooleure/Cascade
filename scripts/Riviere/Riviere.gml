@@ -33,7 +33,7 @@ function RiviereStateRemplissage()
 
 function RiviereStateRempli()
 {
-	sprite_index = sRiviereRempli;
+	sprite_index = sEau2;
 	
 	var _voisins = GridGetVoisins(x, y);
 	
@@ -54,7 +54,10 @@ function RiviereStateRempli()
 		}
 		else if (_voisin.object_index == oEcluse)
 		{
-			_voisin.sens = (y > _voisin.y) ? -1 : 1;
+			if (_voisin.sens == 0)
+			{
+				_voisin.sens = (y > _voisin.y) ? -1 : 1;
+			}
 
 			if (IsState(ECLUSE_STATE.OUVERT_SEC, _voisin) and (CascadeGetPortee() < CascadeGetPorteeMax()))
 			{

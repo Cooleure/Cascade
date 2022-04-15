@@ -2,8 +2,8 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Gameplay",
-    "path": "folders/Gameplay.yy",
+    "name": "Ecluse",
+    "path": "folders/Gameplay/Ecluse.yy",
   },
   "resourceVersion": "1.0",
   "name": "Ecluse",

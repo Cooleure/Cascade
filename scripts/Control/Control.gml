@@ -10,23 +10,29 @@ enum GRID
 
 function ControlCreate()
 {
+	randomize();
+	
 	gameGrid = ds_grid_create(19, 11);
 	ds_grid_clear(gameGrid, GRID.AUCUN);
 	
+	ControlCreateObject(oSurfaceCascade, oCascade, "Cascade");
 	ControlCreateObject(oSurfaceRiviere, oRiviere, "Riviere");
 	ControlCreateObject(oSurfaceGraine, oGraine, "Graine");
 	ControlCreateObject(oSurfaceEcluse, oEcluse, "Ecluse");
-	ControlCreateObject(oSurfaceCascade, oCascade, "Cascade");
+	
+	scoring = 0;
+	
+	cursor_sprite = sMain;
 }
 
 function ControlStep()
 {
-	
 }
 
 function ControlDrawGUI()
 {
 	GridDraw(gameGrid, GRID_SIZE);
+	draw_text(10, 10, scoring);
 }
 
 function ControlGetGameGrid()

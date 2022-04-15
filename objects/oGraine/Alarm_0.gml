@@ -1,0 +1,1 @@
+SetState(GRAINE_STATE.VIDE);

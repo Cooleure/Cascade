@@ -2,8 +2,8 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Gameplay",
-    "path": "folders/Gameplay.yy",
+    "name": "Cascade",
+    "path": "folders/Gameplay/Cascade.yy",
   },
   "resourceVersion": "1.0",
   "name": "Cascade",

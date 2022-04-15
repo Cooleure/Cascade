@@ -1,7 +1,7 @@
 function CascadeCreate()
 {
 	SetState(0);
-	porteeMax = 10;
+	porteeMax = 20;
 	portee = 0;
 }
 

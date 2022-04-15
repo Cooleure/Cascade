@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "sCascade",
-    "path": "sprites/sCascade/sCascade.yy",
+    "name": "sFontaine",
+    "path": "sprites/sFontaine/sFontaine.yy",
   },
   "solid": false,
   "visible": true,
@@ -27,8 +27,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Gameplay",
-    "path": "folders/Gameplay.yy",
+    "name": "Cascade",
+    "path": "folders/Gameplay/Cascade.yy",
   },
   "resourceVersion": "1.0",
   "name": "oCascade",
