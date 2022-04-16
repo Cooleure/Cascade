@@ -1,7 +1,7 @@
 function CascadeCreate()
 {
 	SetState(0);
-	porteeMax = 20;
+	porteeMax = 50;
 	portee = 0;
 }
 
@@ -19,7 +19,7 @@ function CascadeStep()
 		{
 			SetState(RIVIERE_STATE.REMPLISSAGE, _voisin);
 			portee++;
-			_voisin.alarm[0] = 60;
+			_voisin.alarm[0] = RIVIERE_REMPLISSAGE_TIME;
 		}
 	}
 }

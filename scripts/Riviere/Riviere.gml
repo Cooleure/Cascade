@@ -6,6 +6,9 @@ enum RIVIERE_STATE
 	VIDAGE
 };
 
+#macro RIVIERE_REMPLISSAGE_TIME 30
+#macro RIVIERE_VIDAGE_TIME 30
+
 function RiviereInit()
 {
 	SetState(RIVIERE_STATE.SEC);
@@ -33,7 +36,7 @@ function RiviereStateRemplissage()
 
 function RiviereStateRempli()
 {
-	sprite_index = sEau2;
+	sprite_index = sRiviere;
 	
 	var _voisins = GridGetVoisins(x, y);
 	
@@ -49,21 +52,16 @@ function RiviereStateRempli()
 			{
 				SetState(RIVIERE_STATE.REMPLISSAGE, _voisin);
 				oCascade.portee++;
-				_voisin.alarm[0] = 60;
+				_voisin.alarm[0] = RIVIERE_VIDAGE_TIME;
 			}
 		}
 		else if (_voisin.object_index == oEcluse)
 		{
-			if (_voisin.sens == 0)
-			{
-				_voisin.sens = (y > _voisin.y) ? -1 : 1;
-			}
-
 			if (IsState(ECLUSE_STATE.OUVERT_SEC, _voisin) and (CascadeGetPortee() < CascadeGetPorteeMax()))
 			{
 				SetState(ECLUSE_STATE.OUVERT_REMPLISSAGE, _voisin);
 				oCascade.portee++;
-				_voisin.alarm[0] = 60;
+				_voisin.alarm[0] = RIVIERE_REMPLISSAGE_TIME;
 			}
 		}
 	}

@@ -3,7 +3,8 @@
 enum GRAINE_STATE
 {
 	VIDE,
-	POUSSE,
+	POUSSE_DEBUT,
+	POUSSE_FIN,
 	MATURITE,
 	COUPE
 };
@@ -20,9 +21,10 @@ function GraineInit()
 {
 	SetState(GRAINE_STATE.VIDE);
 	stateMachine[0] = GraineStateVide;
-	stateMachine[1] = GraineStatePousse;
-	stateMachine[2] = GraineStateMaturite;
-	stateMachine[3] = GraineStateCoupe;
+	stateMachine[1] = GraineStatePousseDebut;
+	stateMachine[2] = GraineStatePousseFin
+	stateMachine[3] = GraineStateMaturite;
+	stateMachine[4] = GraineStateCoupe;
 	
 	var _idTerreau = irandom(2)
 	
@@ -48,30 +50,30 @@ function GraineStateVide()
 	{
 		case TYPE_GRAINE.CAROTTE:
 			spritePousse = sGraineCarottePousse;
-			spriteMaturite = sGraineCarottePret;
-			duree = 3;
-			scoring = 10;
+			spriteMaturite = sGraineCarotteMaturite;
+			duree = 180;
+			scoring = 30;
 			break;
 			
 		case TYPE_GRAINE.POIREAU:
 			spritePousse = sGrainePoireauPousse;
-			spriteMaturite = sGrainePoireauPret;
-			duree = 5;
+			spriteMaturite = sGrainePoireauMaturite;
+			duree = 60;
 			scoring = 20;
 			break;
 			
 		case TYPE_GRAINE.COURGE:
 			spritePousse = sGraineCourge1;
 			spriteMaturite = sGraineCourge2;
-			duree = 7;
+			duree = 180;
 			scoring = 30;
 			break;
 			
 		case TYPE_GRAINE.CANABIS:
 			spritePousse = sGraineCanabis1;
 			spriteMaturite = sGraineCanabis2;
-			duree = 10;
-			scoring = -100;
+			duree = 180;
+			scoring = -50;
 			break;
 	}
 	
@@ -79,10 +81,10 @@ function GraineStateVide()
 	
 	sprite = sVide;
 
-	SetState(GRAINE_STATE.POUSSE);
+	SetState(GRAINE_STATE.POUSSE_DEBUT);
 }
 
-function GraineStatePousse()
+function GraineStatePousseDebut()
 {
 	var _voisins = GridGetVoisins(x, y);
 	
@@ -101,17 +103,35 @@ function GraineStatePousse()
 	
 	if (timer > (duree * room_speed) div 2)
 	{
-		sprite = spritePousse;
+		SetState(GRAINE_STATE.POUSSE_FIN);
 	}
-	else
+	
+	sprite = sVide;
+}
+
+function GraineStatePousseFin()
+{
+	var _voisins = GridGetVoisins(x, y);
+	
+	for (var _i = 0; _i < 4; _i++)
 	{
-		sprite = sVide;
+		var _voisin = _voisins[_i];
+		
+		if (_voisin == GRID.AUCUN) continue;
+		
+		if ((_voisin.object_index == oRiviere) and IsState(RIVIERE_STATE.REMPLI, _voisin))
+		{
+			timer++;
+			break;
+		}
 	}
 	
 	if (timer >= duree * room_speed)
 	{
 		SetState(GRAINE_STATE.MATURITE);
 	}
+	
+	sprite = spritePousse;
 }
 
 function GraineStateMaturite()
@@ -136,18 +156,23 @@ function GraineDraw()
 
 function GraineMouseLeftPressed()
 {
-	if (IsState(GRAINE_STATE.POUSSE))
+	if (IsState(GRAINE_STATE.POUSSE_FIN))
 	{
 		SetState(GRAINE_STATE.COUPE);
+		
 		alarm[0] = 10 * room_speed;
+		
 		audio_play_sound(sndCoupe, 10, false);
 	}
 	else if (IsState(GRAINE_STATE.MATURITE))
 	{		
 		oControl.scoring += scoring;
 		oControl.scoring = clamp(oControl.scoring, 0, infinity);
+		
 		SetState(GRAINE_STATE.COUPE);
+		
 		alarm[0] = 10 * room_speed;
+		
 		audio_play_sound(sndCoupe, 10, false);
 	}
 }

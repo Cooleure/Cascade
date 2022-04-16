@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "sRiviereSec",
-    "path": "sprites/sRiviereSec/sRiviereSec.yy",
+    "name": "sRiviere",
+    "path": "sprites/sRiviere/sRiviere.yy",
   },
   "solid": false,
   "visible": true,

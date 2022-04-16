@@ -1,4 +1,6 @@
 #macro GRID_SIZE 100
+#macro GRID_MAX_HORIZONTAL 19
+#macro GRID_MAX_VERTICAL 11
 
 enum GRID
 {
