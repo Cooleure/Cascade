@@ -108,9 +108,6 @@ function EcluseMouseLeftPressed()
 			var _trouveBas = EcluseRechercheCascade(_voisins[VOISIN_BAS], id, [id]);
 			var _trouveHaut = EcluseRechercheCascade(_voisins[VOISIN_HAUT], id, [id]);
 			
-			show_debug_message(_trouveHaut);
-			show_debug_message(_trouveBas);
-			
 			var _sens = _trouveBas - _trouveHaut; // -1 = assèchement vers le bas // 1 = assèchement vers le haut
 			
 			// Assèchement

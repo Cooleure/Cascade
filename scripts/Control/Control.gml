@@ -28,6 +28,8 @@ function ControlCreate()
 	audio_play_sound(sndMusique, 10, true);
 	
 	instance_create_layer(mouse_x, mouse_y, "Control", oCurseur);
+	
+	TilesetSol("Sol");
 }
 
 function ControlStep()
