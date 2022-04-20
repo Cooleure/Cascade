@@ -1,14 +1,11 @@
 {
   "spriteId": {
-    "name": "sCurseurMain",
-    "path": "sprites/sCurseurMain/sCurseurMain.yy",
+    "name": "sCurseurMainOuvert",
+    "path": "sprites/sCurseurMainOuvert/sCurseurMainOuvert.yy",
   },
   "solid": false,
   "visible": true,
-  "spriteMaskId": {
-    "name": "sCurseurMain",
-    "path": "sprites/sCurseurMain/sCurseurMain.yy",
-  },
+  "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": null,
   "physicsObject": false,
@@ -31,8 +28,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Control",
-    "path": "folders/Control.yy",
+    "name": "Curseur",
+    "path": "folders/Curseur.yy",
   },
   "resourceVersion": "1.0",
   "name": "oCurseur",

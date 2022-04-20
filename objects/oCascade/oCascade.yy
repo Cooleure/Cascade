@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "sFontaine",
-    "path": "sprites/sFontaine/sFontaine.yy",
+    "name": "sCascade",
+    "path": "sprites/sCascade/sCascade.yy",
   },
   "solid": false,
   "visible": true,

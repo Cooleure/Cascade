@@ -7,10 +7,10 @@
   "edgeFiltering": false,
   "collisionTolerance": 0,
   "swfPrecision": 2.525,
-  "bbox_left": 16,
-  "bbox_right": 79,
+  "bbox_left": 19,
+  "bbox_right": 86,
   "bbox_top": 0,
-  "bbox_bottom": 61,
+  "bbox_bottom": 63,
   "HTile": false,
   "VTile": false,
   "For3D": false,
@@ -26,6 +26,7 @@
   "frames": [
     {"compositeImage":{"FrameId":{"name":"d75040a1-9e74-4564-b82f-c06a00dbae96","path":"sprites/sGrainePoireauMaturite/sGrainePoireauMaturite.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
         {"FrameId":{"name":"d75040a1-9e74-4564-b82f-c06a00dbae96","path":"sprites/sGrainePoireauMaturite/sGrainePoireauMaturite.yy",},"LayerId":{"name":"667c1106-a886-4643-91b5-a15603121c03","path":"sprites/sGrainePoireauMaturite/sGrainePoireauMaturite.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
+        {"FrameId":{"name":"d75040a1-9e74-4564-b82f-c06a00dbae96","path":"sprites/sGrainePoireauMaturite/sGrainePoireauMaturite.yy",},"LayerId":{"name":"8b1fa263-aab6-4c58-ba95-2da373448871","path":"sprites/sGrainePoireauMaturite/sGrainePoireauMaturite.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
       ],"parent":{"name":"sGrainePoireauMaturite","path":"sprites/sGrainePoireauMaturite/sGrainePoireauMaturite.yy",},"resourceVersion":"1.0","name":"d75040a1-9e74-4564-b82f-c06a00dbae96","tags":[],"resourceType":"GMSpriteFrame",},
   ],
   "sequence": {
@@ -66,6 +67,7 @@
   },
   "layers": [
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"667c1106-a886-4643-91b5-a15603121c03","tags":[],"resourceType":"GMImageLayer",},
+    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"Layer 1","resourceVersion":"1.0","name":"8b1fa263-aab6-4c58-ba95-2da373448871","tags":[],"resourceType":"GMImageLayer",},
   ],
   "nineSlice": null,
   "parent": {

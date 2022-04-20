@@ -8,5 +8,5 @@ if (CurseurOnGraine())
 }
 else
 {
-	sprite_index = sCurseurMain;
+	sprite_index = sCurseurMainOuvert;
 }

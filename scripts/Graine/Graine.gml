@@ -92,8 +92,6 @@ function GraineStatePousseDebut()
 	{
 		var _voisin = _voisins[_i];
 		
-		if (_voisin == GRID.AUCUN) continue;
-		
 		if ((_voisin.object_index == oRiviere) and IsState(RIVIERE_STATE.REMPLI, _voisin))
 		{
 			timer++;
@@ -117,7 +115,7 @@ function GraineStatePousseFin()
 	{
 		var _voisin = _voisins[_i];
 		
-		if (_voisin == GRID.AUCUN) continue;
+		if (_voisin == GetNull()) continue;
 		
 		if ((_voisin.object_index == oRiviere) and IsState(RIVIERE_STATE.REMPLI, _voisin))
 		{

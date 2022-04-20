@@ -7,10 +7,10 @@
   "edgeFiltering": false,
   "collisionTolerance": 0,
   "swfPrecision": 2.525,
-  "bbox_left": 12,
-  "bbox_right": 77,
-  "bbox_top": 17,
-  "bbox_bottom": 62,
+  "bbox_left": 16,
+  "bbox_right": 84,
+  "bbox_top": 15,
+  "bbox_bottom": 65,
   "HTile": false,
   "VTile": false,
   "For3D": false,
@@ -26,6 +26,7 @@
   "frames": [
     {"compositeImage":{"FrameId":{"name":"e7d7b4e6-b1b4-4d69-a4b9-c82291f5852f","path":"sprites/sGraineCarotteMaturite/sGraineCarotteMaturite.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
         {"FrameId":{"name":"e7d7b4e6-b1b4-4d69-a4b9-c82291f5852f","path":"sprites/sGraineCarotteMaturite/sGraineCarotteMaturite.yy",},"LayerId":{"name":"3440242c-d654-497f-b910-e47c621ed94f","path":"sprites/sGraineCarotteMaturite/sGraineCarotteMaturite.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
+        {"FrameId":{"name":"e7d7b4e6-b1b4-4d69-a4b9-c82291f5852f","path":"sprites/sGraineCarotteMaturite/sGraineCarotteMaturite.yy",},"LayerId":{"name":"5547449a-acb0-4219-84df-2e79c6dc2d1d","path":"sprites/sGraineCarotteMaturite/sGraineCarotteMaturite.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
       ],"parent":{"name":"sGraineCarotteMaturite","path":"sprites/sGraineCarotteMaturite/sGraineCarotteMaturite.yy",},"resourceVersion":"1.0","name":"e7d7b4e6-b1b4-4d69-a4b9-c82291f5852f","tags":[],"resourceType":"GMSpriteFrame",},
   ],
   "sequence": {
@@ -66,6 +67,7 @@
   },
   "layers": [
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"3440242c-d654-497f-b910-e47c621ed94f","tags":[],"resourceType":"GMImageLayer",},
+    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"Layer 1","resourceVersion":"1.0","name":"5547449a-acb0-4219-84df-2e79c6dc2d1d","tags":[],"resourceType":"GMImageLayer",},
   ],
   "nineSlice": null,
   "parent": {

@@ -7,10 +7,10 @@
   "edgeFiltering": false,
   "collisionTolerance": 0,
   "swfPrecision": 2.525,
-  "bbox_left": 28,
-  "bbox_right": 66,
-  "bbox_top": 27,
-  "bbox_bottom": 61,
+  "bbox_left": 31,
+  "bbox_right": 73,
+  "bbox_top": 25,
+  "bbox_bottom": 63,
   "HTile": false,
   "VTile": false,
   "For3D": false,
@@ -26,6 +26,7 @@
   "frames": [
     {"compositeImage":{"FrameId":{"name":"d90c70e1-59d5-4fd1-bfec-f8323e35ba27","path":"sprites/sGraineCarottePousse/sGraineCarottePousse.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
         {"FrameId":{"name":"d90c70e1-59d5-4fd1-bfec-f8323e35ba27","path":"sprites/sGraineCarottePousse/sGraineCarottePousse.yy",},"LayerId":{"name":"501602d8-3a57-4962-a092-84af1e05cf38","path":"sprites/sGraineCarottePousse/sGraineCarottePousse.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
+        {"FrameId":{"name":"d90c70e1-59d5-4fd1-bfec-f8323e35ba27","path":"sprites/sGraineCarottePousse/sGraineCarottePousse.yy",},"LayerId":{"name":"cf0b278b-f572-4993-8357-c2cd3271e059","path":"sprites/sGraineCarottePousse/sGraineCarottePousse.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
       ],"parent":{"name":"sGraineCarottePousse","path":"sprites/sGraineCarottePousse/sGraineCarottePousse.yy",},"resourceVersion":"1.0","name":"d90c70e1-59d5-4fd1-bfec-f8323e35ba27","tags":[],"resourceType":"GMSpriteFrame",},
   ],
   "sequence": {
@@ -66,6 +67,7 @@
   },
   "layers": [
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"501602d8-3a57-4962-a092-84af1e05cf38","tags":[],"resourceType":"GMImageLayer",},
+    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"Layer 1","resourceVersion":"1.0","name":"cf0b278b-f572-4993-8357-c2cd3271e059","tags":[],"resourceType":"GMImageLayer",},
   ],
   "nineSlice": null,
   "parent": {

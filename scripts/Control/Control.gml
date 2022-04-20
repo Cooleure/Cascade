@@ -4,7 +4,7 @@
 
 enum GRID
 {
-	AUCUN,
+	AUCUN, // Pas de conflit avec les assets
 	RIVIERE,
 	GRAINE,
 	ECLUSE
@@ -14,13 +14,25 @@ function ControlCreate()
 {
 	randomize();
 	
+	null = instance_create_depth(0, 0, 0, oNull);
+	
 	gameGrid = ds_grid_create(19, 11);
-	ds_grid_clear(gameGrid, GRID.AUCUN);
+	ds_grid_clear(gameGrid, null.id);
 	
 	ControlCreateObject(oSurfaceCascade, oCascade, "Cascade");
 	ControlCreateObject(oSurfaceRiviere, oRiviere, "Riviere");
+	ControlCreateObject(oSurfaceEcluse, oRiviere, "Riviere");
 	ControlCreateObject(oSurfaceGraine, oGraine, "Graine");
 	ControlCreateObject(oSurfaceEcluse, oEcluse, "Ecluse");
+	
+	// On initialise les sprites des rivières
+	// Ne peuvent pas elles mêmes s'initialiser
+	// Nécessitent que toutes les rivières soient posées pour le faire
+	with (oRiviere)
+	{
+		RiviereTypeInit();
+		RiviereSpriteInit();
+	}
 	
 	scoring = 0;
 	
@@ -29,7 +41,7 @@ function ControlCreate()
 	
 	instance_create_layer(mouse_x, mouse_y, "Control", oCurseur);
 	
-	TilesetSol("Sol");
+	TilesetSol();
 }
 
 function ControlStep()
@@ -64,7 +76,7 @@ function ControlCreateObject(_surface, _object, _layer)
 			{
 				var _inst = instance_create_layer(x + _i * GRID_SIZE, y, _layer, _object);
 				
-				if (ds_grid_get(ControlGetGameGrid(), _xRiviere + _i, _yRiviere) == GRID.AUCUN)
+				if (ds_grid_get(ControlGetGameGrid(), _xRiviere + _i, _yRiviere) == GetNull())
 				{
 					ds_grid_set(ControlGetGameGrid(), _xRiviere + _i, _yRiviere, _inst.id);
 				}
@@ -76,7 +88,7 @@ function ControlCreateObject(_surface, _object, _layer)
 			{
 				var _inst = instance_create_layer(x, y + _i * GRID_SIZE, _layer, _object);
 				
-				if (ds_grid_get(ControlGetGameGrid(), _xRiviere, _yRiviere + _i) == GRID.AUCUN)
+				if (ds_grid_get(ControlGetGameGrid(), _xRiviere, _yRiviere + _i) == GetNull())
 				{
 					ds_grid_set(ControlGetGameGrid(), _xRiviere, _yRiviere + _i, _inst.id);
 				}
@@ -84,9 +96,9 @@ function ControlCreateObject(_surface, _object, _layer)
 		}
 		else
 		{
-			var _inst = instance_create_layer(x, y, "Riviere", _object);
+			var _inst = instance_create_layer(x, y, _layer, _object);
 			
-			if (ds_grid_get(ControlGetGameGrid(), _xRiviere, _yRiviere) == GRID.AUCUN)
+			if (ds_grid_get(ControlGetGameGrid(), _xRiviere, _yRiviere) == GetNull())
 			{
 				ds_grid_set(ControlGetGameGrid(), _xRiviere, _yRiviere, _inst.id);
 			}
@@ -94,4 +106,7 @@ function ControlCreateObject(_surface, _object, _layer)
 	}
 }
 
-
+function GetNull()
+{
+	return oControl.null;
+}

@@ -1,14 +1,8 @@
 {
-  "spriteId": {
-    "name": "sGraineTerreau1",
-    "path": "sprites/sGraineTerreau1/sGraineTerreau1.yy",
-  },
+  "spriteId": null,
   "solid": false,
   "visible": true,
-  "spriteMaskId": {
-    "name": "sTileHerbe",
-    "path": "sprites/sTileHerbe/sTileHerbe.yy",
-  },
+  "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": null,
   "physicsObject": false,

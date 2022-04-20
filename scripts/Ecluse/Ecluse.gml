@@ -33,17 +33,17 @@ function EcluseStateFerme()
 
 function EcluseStateOuvertSec()
 {
-	sprite_index = sEcluseOuverte;
+	sprite_index = sEcluseOuvert;
 }
 
 function EcluseStateOuvertRemplissage()
 {
-	sprite_index = sEcluseOuverte;
+	sprite_index = sEcluseOuvert;
 }
 
 function EcluseStateOuvertRempli()
 {
-	sprite_index = sEcluseOuverte;
+	sprite_index = sEcluseOuvert;
 	
 	var _voisins = GridGetVoisins(x, y);
 	
@@ -51,15 +51,13 @@ function EcluseStateOuvertRempli()
 	{
 		var _voisin = _voisins[_i];
 		
-		if (_voisin == GRID.AUCUN) continue;
-		
 		if (_voisin.object_index == oRiviere)
 		{
 			if (IsState(RIVIERE_STATE.SEC, _voisin) and (CascadeGetPortee() < CascadeGetPorteeMax()))
 			{
 				SetState(RIVIERE_STATE.REMPLISSAGE, _voisin);
 				oCascade.portee++;
-				_voisin.alarm[0] = RIVIERE_REMPLISSAGE_TIME;
+				//_voisin.alarm[0] = RIVIERE_REMPLISSAGE_TIME;
 			}
 		}
 	}
@@ -68,6 +66,19 @@ function EcluseStateOuvertRempli()
 function EcluseStateOuvertVidage()
 {
 	sprite_index = sEcluseFerme;
+}
+
+
+function EcluseAnimationEnd()
+{
+	if (IsState(ECLUSE_STATE.OUVERT_REMPLISSAGE))
+	{
+		SetState(ECLUSE_STATE.OUVERT_REMPLI);
+	}
+	else if (IsState(ECLUSE_STATE.OUVERT_VIDAGE))
+	{
+		SetState(ECLUSE_STATE.OUVERT_SEC);
+	}
 }
 
 function EcluseMouseLeftPressed()
@@ -141,20 +152,20 @@ function EcluseDraw()
 	
 	if (IsState(ECLUSE_STATE.OUVERT_REMPLISSAGE))
 	{
-		draw_sprite(sRiviereRemplissage, image_speed, x, y);
+		//draw_sprite(sRiviereRemplissage, image_speed, x, y);
 	}
 	else if (IsState(ECLUSE_STATE.OUVERT_REMPLI))
 	{
-		draw_sprite(sRiviere, image_speed, x, y);
+		//draw_sprite(sRiviere, image_speed, x, y);
 	}
 	else if (IsState(RIVIERE_STATE.REMPLI, _voisins[VOISIN_BAS]) and IsState(RIVIERE_STATE.REMPLI, _voisins[VOISIN_HAUT]))
 	{
-		draw_sprite(sRiviere, image_speed, x, y);
+		//draw_sprite(sRiviere, image_speed, x, y);
 	}
 	
 	draw_self();
 	
-	draw_text(x + 10, y + 30, id);
+	//draw_text(x + 10, y + 30, id);
 }
 
 function EcluseVidageTotal(_suivant)
@@ -165,18 +176,19 @@ function EcluseVidageTotal(_suivant)
 	{
 		var _voisin = _voisins[_i];
 		
-		if (_voisin == GRID.AUCUN) continue;
-		
 		if (_voisin.object_index == oRiviere)
 		{
 			if (IsState(RIVIERE_STATE.REMPLI, _voisin) or IsState(RIVIERE_STATE.REMPLISSAGE, _voisin))
 			{
 				SetState(RIVIERE_STATE.VIDAGE, _voisin);
 				
-				alarm[0] = -1;
-				_voisin.alarm[0] = -1;
-				_voisin.alarm[1] = RIVIERE_VIDAGE_TIME;
+				//alarm[0] = -1;
+				//_voisin.alarm[0] = -1;
+				//_voisin.alarm[1] = RIVIERE_VIDAGE_TIME;
 				
+				//_voisin.image_index = 0; // On remet à 0 l'animation pour que le vidage soit bien synchro
+
+
 				EcluseVidageTotal(_voisin);
 			}
 		}
@@ -186,9 +198,9 @@ function EcluseVidageTotal(_suivant)
 			{
 				SetState(ECLUSE_STATE.OUVERT_VIDAGE, _voisin);
 				
-				alarm[0] = -1;
-				_voisin.alarm[0] = -1;
-				_voisin.alarm[1] = RIVIERE_REMPLISSAGE_TIME;
+				//alarm[0] = -1;
+				//_voisin.alarm[0] = -1;
+				//_voisin.alarm[1] = RIVIERE_REMPLISSAGE_TIME;
 				
 				EcluseVidageTotal(_voisin);
 			}
@@ -206,7 +218,7 @@ function EcluseRechercheCascade(_suivant, _precedent, _ecluses)
 		
 		// On ne veut pas continuer le parcours sur le précédent
 		// On s'arrete sur le départ
-		if ((_voisin == GRID.AUCUN) or (_voisin == _precedent)) continue;
+		if ((_voisin == GetNull()) or (_voisin == _precedent)) continue;
 		
 		// On s'arrête si on est sur une écluse déjà terminée (évite les boucles infinies)
 		var _ecluseAlready = false;

@@ -25,13 +25,13 @@ function GridDraw(_gameGrid, _size)
 		draw_line(0, _j * _size, 1920, _j * _size);
 	}
 	
-	//for (var _i = 0; _i < ds_grid_width(_gameGrid); _i++)
-	//{
-	//	for (var _j = 0; _j < ds_grid_height(_gameGrid); _j++)
-	//	{
-	//		draw_text(_i * _size, _j * _size, ds_grid_get(_gameGrid, _i, _j));
-	//	}
-	//}
+	for (var _i = 0; _i < ds_grid_width(_gameGrid); _i++)
+	{
+		for (var _j = 0; _j < ds_grid_height(_gameGrid); _j++)
+		{
+			draw_text(_i * _size, _j * _size, GetState(ds_grid_get(_gameGrid, _i, _j)));
+		}
+	}
 }
 
 function GridGetVoisins(_x, _y)
@@ -48,7 +48,7 @@ function GridGetVoisins(_x, _y)
 	}
 	else
 	{
-		_voisins[0] = GRID.AUCUN;
+		_voisins[0] = GetNull();
 	}
 	
 	if (_yPos < GRID_MAX_VERTICAL - 1) // Bas
@@ -57,7 +57,7 @@ function GridGetVoisins(_x, _y)
 	}
 	else
 	{
-		_voisins[1] = GRID.AUCUN;
+		_voisins[1] = GetNull();
 	}
 	
 	if (_xPos > 0) // Gauche
@@ -66,7 +66,7 @@ function GridGetVoisins(_x, _y)
 	}
 	else
 	{
-		_voisins[2] = GRID.AUCUN;
+		_voisins[2] = GetNull();
 	}
 	
 	if ( _yPos > 0) // Haut
@@ -75,7 +75,7 @@ function GridGetVoisins(_x, _y)
 	}
 	else
 	{
-		_voisins[3] = GRID.AUCUN;
+		_voisins[3] = GetNull();
 	}
 	
 	return _voisins;
