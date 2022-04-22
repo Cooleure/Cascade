@@ -8,12 +8,18 @@ enum RIVIERE_STATE
 
 enum RIVIERE_TYPE
 {
+	// NON CROISEMENTS
 	VERTICAL,
 	HORIZONTAL,
+	BOUT_BAS,
+	BOUT_HAUT,
+	BOUT_DROITE,
+	BOUT_GAUCHE,
 	ANGLE_BAS_DROITE,
 	ANGLE_BAS_GAUCHE,
 	ANGLE_HAUT_DROITE,
 	ANGLE_HAUT_GAUCHE,
+	// CROISEMENTS
 	T_BAS,
 	T_HAUT,
 	T_DROITE,
@@ -23,6 +29,7 @@ enum RIVIERE_TYPE
 
 
 
+/// State Machine
 function RiviereInit()
 {
 	SetState(RIVIERE_STATE.SEC);
@@ -33,13 +40,13 @@ function RiviereInit()
 	
 	RiviereTypeInit();
 	RiviereSpriteInit();
+	ecluse = undefined; // Si liée à une écluse
 }
 
 function RiviereUpdate()
 {
 	script_execute(stateMachine[state]);
 }
-
 
 function RiviereStateSec()
 {
@@ -55,31 +62,23 @@ function RiviereStateRempli()
 {
 	sprite_index = spriteRempli;
 	
+	// Remplissage des rivières suivantes
 	var _voisins = GridGetVoisins(x, y);
+	
+	// Si l'écluse est fermée, on ne traite pas la rivière jumelle (celle derrière l'écluse)
+	RiviereVoisinClearTwin(_voisins, id);
 	
 	for (var _i = 0; _i < 4; _i++)
 	{
 		var _voisin = _voisins[_i];
-		
-		if (_voisin.object_index == oRiviere)
+
+		if (_voisin.object_index != oRiviere) continue;
+
+		if (IsState(RIVIERE_STATE.SEC, _voisin) and (CascadeGetPortee() < CascadeGetPorteeMax()))
 		{
-			if (IsState(RIVIERE_STATE.SEC, _voisin) and (CascadeGetPortee() < CascadeGetPorteeMax()))
-			{
-				SetState(RIVIERE_STATE.REMPLISSAGE, _voisin);
-				oCascade.portee++;
-				//_voisin.alarm[0] = RIVIERE_VIDAGE_TIME;
-				_voisin.image_index = 0;
-			}
-		}
-		else if (_voisin.object_index == oEcluse)
-		{
-			if (IsState(ECLUSE_STATE.OUVERT_SEC, _voisin) and (CascadeGetPortee() < CascadeGetPorteeMax()))
-			{
-				SetState(ECLUSE_STATE.OUVERT_REMPLISSAGE, _voisin);
-				oCascade.portee++;
-				//_voisin.alarm[0] = RIVIERE_REMPLISSAGE_TIME;
-				_voisin.image_index = 0;
-			}
+			SetState(RIVIERE_STATE.REMPLISSAGE, _voisin);
+			oCascade.portee++;
+			_voisin.image_index = 0;
 		}
 	}
 }
@@ -91,6 +90,7 @@ function RiviereStateVidage()
 
 
 
+/// Events
 function RiviereAnimationEnd()
 {
 	image_index = 0;
@@ -105,7 +105,26 @@ function RiviereAnimationEnd()
 	}
 }
 
+function RiviereDraw()
+{
+	draw_self();
+	draw_text(x + 10, y + 10, id);
+}
 
+/// Internal
+function RiviereVoisinClearTwin(_voisins, _riviere)
+{
+	// On considère la rivière "jumelle" (celle de l'autre côté de l'écluse) comme un oNull
+	for (var _i = 0; _i < 4; _i++)
+	{
+		if (_voisins[_i].object_index != oRiviere)			continue;
+		if (_voisins[_i].ecluse == undefined)				continue;
+		if (IsState(ECLUSE_STATE.OUVERT, _riviere.ecluse))	continue;
+		if (_voisins[_i].ecluse != _riviere.ecluse)			continue;
+		
+		_voisins[_i] = GetNull();
+	}
+}
 
 function RiviereTypeInit()
 {
@@ -123,6 +142,22 @@ function RiviereTypeInit()
 	else if ((_bas != oRiviere) and (_haut != oRiviere) and (_droite == oRiviere) and (_gauche == oRiviere))
 	{
 		riviereType = RIVIERE_TYPE.HORIZONTAL;
+	}
+	else if ((_bas != oRiviere) and (_haut == oRiviere) and (_droite != oRiviere) and (_gauche != oRiviere))
+	{
+		riviereType = RIVIERE_TYPE.BOUT_BAS;
+	}
+	else if ((_bas == oRiviere) and (_haut != oRiviere) and (_droite != oRiviere) and (_gauche != oRiviere))
+	{
+		riviereType = RIVIERE_TYPE.BOUT_HAUT;
+	}
+	else if ((_bas != oRiviere) and (_haut != oRiviere) and (_droite != oRiviere) and (_gauche == oRiviere))
+	{
+		riviereType = RIVIERE_TYPE.BOUT_DROITE;
+	}
+	else if ((_bas != oRiviere) and (_haut != oRiviere) and (_droite == oRiviere) and (_gauche != oRiviere))
+	{
+		riviereType = RIVIERE_TYPE.BOUT_GAUCHE;
 	}
 	else if ((_bas != oRiviere) and (_haut == oRiviere) and (_droite != oRiviere) and (_gauche == oRiviere))
 	{
@@ -171,6 +206,10 @@ function RiviereSpriteInit()
 	{
 		case RIVIERE_TYPE.VERTICAL:				spriteRempli = sRiviereCalmeLigneVerticale;		break;
 		case RIVIERE_TYPE.HORIZONTAL:			spriteRempli = sRiviereCalmeLigneHorizontale;	break;
+		case RIVIERE_TYPE.BOUT_BAS:				spriteRempli = sRiviereCalmeBoutBas;			break;
+		case RIVIERE_TYPE.BOUT_HAUT:			spriteRempli = sRiviereCalmeBoutHaut;			break;
+		case RIVIERE_TYPE.BOUT_DROITE:			spriteRempli = sRiviereCalmeBoutDroite;			break;
+		case RIVIERE_TYPE.BOUT_GAUCHE:			spriteRempli = sRiviereCalmeBoutGauche;			break;
 		case RIVIERE_TYPE.ANGLE_BAS_DROITE:		spriteRempli = sRiviereCalmeAngleBasDroite;		break;
 		case RIVIERE_TYPE.ANGLE_BAS_GAUCHE:		spriteRempli = sRiviereCalmeAngleBasGauche;		break;
 		case RIVIERE_TYPE.ANGLE_HAUT_DROITE:	spriteRempli = sRiviereCalmeAngleHautDroite;	break;
@@ -190,7 +229,6 @@ function SpriteChooseRemplissage()
 	var _bas	= _voisins[VOISIN_BAS];
 	var _haut	= _voisins[VOISIN_HAUT];
 	var _droite	= _voisins[VOISIN_DROITE];
-	//var _gauche	= _voisins[VOISIN_GAUCHE];
 	
 	switch (riviereType)
 	{
@@ -201,6 +239,18 @@ function SpriteChooseRemplissage()
 		case RIVIERE_TYPE.HORIZONTAL:
 			if (IsState(RIVIERE_STATE.REMPLI, _droite))	return sRiviereCourantLigneHorizontaleVersGauche;
 			else										return sRiviereCourantLigneHorizontaleVersDroite;
+			
+		case RIVIERE_TYPE.BOUT_BAS:
+			return sRiviereCourantLigneVerticaleVersBas;
+			
+		case RIVIERE_TYPE.BOUT_HAUT:
+			return sRiviereCourantLigneVerticaleVersHaut;
+			
+		case RIVIERE_TYPE.BOUT_DROITE:
+			return sRiviereCourantLigneHorizontaleVersDroite;
+			
+		case RIVIERE_TYPE.BOUT_GAUCHE:
+			return sRiviereCourantLigneHorizontaleVersGauche;
 			
 		case RIVIERE_TYPE.ANGLE_BAS_DROITE:
 			if (IsState(RIVIERE_STATE.REMPLI, _haut))	return sRiviereCourantAngleBasDroiteVersGauche;
@@ -245,3 +295,5 @@ function SpriteChooseRemplissage()
 			else												return sRiviereCourantCroisementVersDroite;
 	}
 }
+
+

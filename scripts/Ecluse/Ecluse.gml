@@ -1,22 +1,26 @@
 enum ECLUSE_STATE
 {
 	FERME,
-	OUVERT_SEC,
-	OUVERT_REMPLISSAGE,
-	OUVERT_REMPLI,
-	OUVERT_VIDAGE
+	OUVERT
 };
 
-#macro ECLUSE_COOLDOWN 120
+#macro ECLUSE_COOLDOWN 40
 
+
+
+/// State Machine
 function EcluseInit()
 {
-	SetState(ECLUSE_STATE.FERME);
+	SetState(ECLUSE_STATE.OUVERT);
 	stateMachine[0] = EcluseStateFerme;
-	stateMachine[1] = EcluseStateOuvertSec;
-	stateMachine[2] = EcluseStateOuvertRemplissage;
-	stateMachine[3] = EcluseStateOuvertRempli;
-	stateMachine[4] = EcluseStateOuvertVidage;
+	stateMachine[1] = EcluseStateOuvert;
+	
+	// Liens au rivières
+	var _pos = GridGetPosition(x, y);
+	riviereBas = ds_grid_get(ControlGetGameGrid(), _pos[0], _pos[1] + 1);
+	riviereHaut = ds_grid_get(ControlGetGameGrid(), _pos[0], _pos[1]);
+	riviereBas.ecluse = id;
+	riviereHaut.ecluse = id;
 	
 	coolDown = true;
 }
@@ -31,146 +35,102 @@ function EcluseStateFerme()
 	sprite_index = sEcluseFerme;
 }
 
-function EcluseStateOuvertSec()
+function EcluseStateOuvert()
 {
 	sprite_index = sEcluseOuvert;
 }
 
-function EcluseStateOuvertRemplissage()
-{
-	sprite_index = sEcluseOuvert;
-}
-
-function EcluseStateOuvertRempli()
-{
-	sprite_index = sEcluseOuvert;
-	
-	var _voisins = GridGetVoisins(x, y);
-	
-	for (var _i = 0; _i < 4; _i++)
-	{
-		var _voisin = _voisins[_i];
-		
-		if (_voisin.object_index == oRiviere)
-		{
-			if (IsState(RIVIERE_STATE.SEC, _voisin) and (CascadeGetPortee() < CascadeGetPorteeMax()))
-			{
-				SetState(RIVIERE_STATE.REMPLISSAGE, _voisin);
-				oCascade.portee++;
-				//_voisin.alarm[0] = RIVIERE_REMPLISSAGE_TIME;
-			}
-		}
-	}
-}
-
-function EcluseStateOuvertVidage()
-{
-	sprite_index = sEcluseFerme;
-}
 
 
-function EcluseAnimationEnd()
-{
-	if (IsState(ECLUSE_STATE.OUVERT_REMPLISSAGE))
-	{
-		SetState(ECLUSE_STATE.OUVERT_REMPLI);
-	}
-	else if (IsState(ECLUSE_STATE.OUVERT_VIDAGE))
-	{
-		SetState(ECLUSE_STATE.OUVERT_SEC);
-	}
-}
-
+/// Events
 function EcluseMouseLeftPressed()
 {
-	if (coolDown)
-	{
-		var _id = irandom(1);
+	if (!coolDown) exit;
 		
-		if (IsState(ECLUSE_STATE.FERME))
-		{
-			if (_id == 0) audio_play_sound(sndOuverture1, 10, false);
-			else audio_play_sound(sndOuverture2, 10, false);
-			
-			// Etat
-			var _voisins = GridGetVoisins(x, y);
-
-			if (IsState((RIVIERE_STATE.REMPLI), _voisins[VOISIN_BAS]) and IsState((RIVIERE_STATE.REMPLI), _voisins[VOISIN_HAUT]))
-			{
-				SetState(ECLUSE_STATE.OUVERT_REMPLI);
-			}
-			else
-			{
-				SetState(ECLUSE_STATE.OUVERT_SEC);
-			}
-		}
-		else
-		{
-			// Etat
-			SetState(ECLUSE_STATE.FERME);
-			
-			// Audio
-			if (_id == 0) audio_play_sound(sndFermeture1, 10, false);
-			else audio_play_sound(sndFermeture2, 10, false);
-			
-			// Recheche du sens
-			var _voisins = GridGetVoisins(x, y);
-			
-			var _trouveBas = EcluseRechercheCascade(_voisins[VOISIN_BAS], id, [id]);
-			var _trouveHaut = EcluseRechercheCascade(_voisins[VOISIN_HAUT], id, [id]);
-			
-			var _sens = _trouveBas - _trouveHaut; // -1 = assèchement vers le bas // 1 = assèchement vers le haut
-			
-			// Assèchement
-			if (_sens == 0) exit;
-			
-			var _suivant = (_sens < 0) ? _voisins[VOISIN_BAS] : _voisins[VOISIN_HAUT];
-			
-			EcluseVidageTotal(_suivant);
+	coolDown = false;
+	alarm[11] = ECLUSE_COOLDOWN;
 	
-			// Mis à jour de la portee
-			oCascade.portee = 0;
+	if (IsState(ECLUSE_STATE.FERME))
+	{
+		// Etat
+		SetState(ECLUSE_STATE.OUVERT);
+		
+		// Son
+		if (irandom(1))	audio_play_sound(sndOuverture1, 10, false);
+		else			audio_play_sound(sndOuverture2, 10, false);
+		
+		// Remplissage
+		if (IsState(RIVIERE_STATE.SEC, riviereBas) and IsState(RIVIERE_STATE.REMPLI, riviereHaut) and (CascadeGetPortee() < CascadeGetPorteeMax()))
+		{
+			SetState(RIVIERE_STATE.REMPLISSAGE, riviereBas);
+			oCascade.portee++;
+		}
+	
+		if (IsState(RIVIERE_STATE.SEC, riviereHaut) and IsState(RIVIERE_STATE.REMPLI, riviereBas) and (CascadeGetPortee() < CascadeGetPorteeMax()))
+		{
+			SetState(RIVIERE_STATE.REMPLISSAGE, riviereHaut);
+			oCascade.portee++;
+		}
+	}
+	else
+	{
+		// Etat
+		SetState(ECLUSE_STATE.FERME);
+		
+		// Son
+		if (irandom(1))	audio_play_sound(sndFermeture1, 10, false);
+		else			audio_play_sound(sndFermeture2, 10, false);
 			
-			with (oRiviere)
-			{
-				if (IsState(RIVIERE_STATE.REMPLI) or IsState(RIVIERE_STATE.REMPLISSAGE))
-				{
-					oCascade.portee++;
-				}
-			}
+		// Recheche du sens (on part du principe qu'il ne sont pas remplis et qu'il n'amènent pas à la cascade
+		var _trouveBas = 0;
+		var _trouveHaut = 0;
+		
+		if (IsState(RIVIERE_STATE.REMPLI, riviereBas))
+		{
+			_trouveBas = EcluseRechercheCascade(riviereBas, id, [riviereBas]);
 		}
 		
-		coolDown = false;
-		alarm[11] = ECLUSE_COOLDOWN;
+		if (IsState(RIVIERE_STATE.REMPLI, riviereBas))
+		{
+			_trouveHaut	= EcluseRechercheCascade(riviereHaut, id, [riviereHaut]);
+		}
+		
+		var _sens = _trouveBas - _trouveHaut; // -1 = assèchement vers le bas // 1 = assèchement vers le haut
+		show_debug_message(_sens);
+		// Assèchement
+		if (_sens == 0) exit;
+			
+		var _suivant = (_sens < 0) ? riviereBas : riviereHaut;
+		
+		SetState(RIVIERE_STATE.VIDAGE, _suivant);
+		EcluseVidageTotal(_suivant);
+	
+		// Mis à jour de la portee
+		oCascade.portee = 0;
+			
+		with (oRiviere)
+		{
+			if (IsState(RIVIERE_STATE.REMPLI) or IsState(RIVIERE_STATE.REMPLISSAGE))
+			{
+				oCascade.portee++;
+			}
+		}
 	}
 }
 
 function EcluseDraw()
 {
-	image_speed = 2;
-	var _voisins = GridGetVoisins(x, y);
-	
-	if (IsState(ECLUSE_STATE.OUVERT_REMPLISSAGE))
-	{
-		//draw_sprite(sRiviereRemplissage, image_speed, x, y);
-	}
-	else if (IsState(ECLUSE_STATE.OUVERT_REMPLI))
-	{
-		//draw_sprite(sRiviere, image_speed, x, y);
-	}
-	else if (IsState(RIVIERE_STATE.REMPLI, _voisins[VOISIN_BAS]) and IsState(RIVIERE_STATE.REMPLI, _voisins[VOISIN_HAUT]))
-	{
-		//draw_sprite(sRiviere, image_speed, x, y);
-	}
-	
 	draw_self();
-	
-	//draw_text(x + 10, y + 30, id);
+	//draw_text(x + 10, y + 30, coolDown);
 }
 
+
+
+/// Internal
 function EcluseVidageTotal(_suivant)
 {
 	var _voisins = GridGetVoisins(_suivant.x, _suivant.y);
+	RiviereVoisinClearTwin(_voisins, _suivant);
 	
 	for (var _i = 0; _i < 4; _i++)
 	{
@@ -182,25 +142,7 @@ function EcluseVidageTotal(_suivant)
 			{
 				SetState(RIVIERE_STATE.VIDAGE, _voisin);
 				
-				//alarm[0] = -1;
-				//_voisin.alarm[0] = -1;
-				//_voisin.alarm[1] = RIVIERE_VIDAGE_TIME;
-				
 				//_voisin.image_index = 0; // On remet à 0 l'animation pour que le vidage soit bien synchro
-
-
-				EcluseVidageTotal(_voisin);
-			}
-		}
-		else if (_voisin.object_index == oEcluse)
-		{
-			if (IsState(ECLUSE_STATE.OUVERT_REMPLI, _voisin) or IsState(ECLUSE_STATE.OUVERT_REMPLISSAGE, _voisin))
-			{
-				SetState(ECLUSE_STATE.OUVERT_VIDAGE, _voisin);
-				
-				//alarm[0] = -1;
-				//_voisin.alarm[0] = -1;
-				//_voisin.alarm[1] = RIVIERE_REMPLISSAGE_TIME;
 				
 				EcluseVidageTotal(_voisin);
 			}
@@ -208,56 +150,47 @@ function EcluseVidageTotal(_suivant)
 	}
 }
 
-function EcluseRechercheCascade(_suivant, _precedent, _ecluses)
+function EcluseRechercheCascade(_suivant, _precedent, _riviere)
 {
+	show_debug_message(_riviere);
 	var _voisins = GridGetVoisins(_suivant.x, _suivant.y);
-	
+	RiviereVoisinClearTwin(_voisins, _suivant);
+
 	for (var _i = 0; _i < 4; _i++)
 	{
 		var _voisin = _voisins[_i];
 		
 		// On ne veut pas continuer le parcours sur le précédent
 		// On s'arrete sur le départ
-		if ((_voisin == GetNull()) or (_voisin == _precedent)) continue;
-		
-		// On s'arrête si on est sur une écluse déjà terminée (évite les boucles infinies)
-		var _ecluseAlready = false;
-		for (var _j = 0; _j < array_length(_ecluses); _j++)
-		{
-			if (_voisin == _ecluses[_j]) // Si c'est une écluse par laquelle on est déjà passé
-			{
-				_ecluseAlready = true;
-				break;
-			}
-		}
-		
-		if (_ecluseAlready) continue;
+		if ((_voisin == GetNull()) or (_voisin == _precedent))	continue;
+		if (EcluseAlreadyRiviere(_voisin, _riviere))			continue; // On s'arrête si on est sur un croisement déjà traversé (évite les boucles infinies)
 		
 		if (_voisin.object_index == oRiviere)
 		{
 			if (IsState(RIVIERE_STATE.REMPLI, _voisin) or IsState(RIVIERE_STATE.REMPLISSAGE, _voisin))
 			{
-				if (EcluseRechercheCascade(_voisin, _suivant, _ecluses)) return 1; // On propage au suivant en se considérant comme le précédent
-			}
-		}
-		else if (_voisin.object_index == oEcluse)
-		{
-			if (IsState(ECLUSE_STATE.OUVERT_REMPLI, _voisin) or IsState(ECLUSE_STATE.OUVERT_REMPLISSAGE, _voisin))
-			{
-				// Copie des écluses déjà traversées
-				var _tailleEcluses = array_length(_ecluses);
-				var _eclusesCopy = array_create(_tailleEcluses + 1);
-				for (var _j = 0; _j < _tailleEcluses; _j++)
+				if (_voisin.riviereType >= RIVIERE_TYPE.T_BAS) // On sauvegarde les croisements
 				{
-				   _eclusesCopy[_j] = _ecluses[_j];
-				}
-				_eclusesCopy[_tailleEcluses] = _voisin;
+					// Copie des croisement déjà traversés
+					var _tailleRiviere = array_length(_riviere);
+					var _riviereCopy = array_create(_tailleRiviere + 1);
 				
-				// Continue le chemin en ajoutant l'écluse qui vient d'être traversée
-				if (EcluseRechercheCascade(_voisin, _suivant, _eclusesCopy)) return 1;
+					for (var _j = 0; _j < _tailleRiviere; _j++)
+					{
+					   _riviereCopy[_j] = _riviere[_j];
+					}
+					_riviereCopy[_tailleRiviere] = _voisin;
+				
+					// Continue le chemin en ajoutant le croisement qui vient d'être traversée
+					if (EcluseRechercheCascade(_voisin, _suivant, _riviereCopy)) return 1;
+				}
+				else
+				{
+					if (EcluseRechercheCascade(_voisin, _suivant, _riviere)) return 1;
+				}
 			}
 		}
-		else if (_voisin.object_index = oCascade)
+		else if (_voisin.object_index == oCascade)
 		{
 			return 1;
 		}
@@ -265,3 +198,17 @@ function EcluseRechercheCascade(_suivant, _precedent, _ecluses)
 	
 	return 0;
 }
+
+function EcluseAlreadyRiviere(_voisin, _riviere)
+{
+	for (var _j = 0; _j < array_length(_riviere); _j++)
+	{
+		if (_voisin == _riviere[_j]) // Si c'est un croisement par lequelle on est déjà passé
+		{
+			return true;
+		}
+	}
+	
+	return false;
+}
+

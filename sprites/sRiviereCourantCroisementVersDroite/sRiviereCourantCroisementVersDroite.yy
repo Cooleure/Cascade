@@ -8,9 +8,9 @@
   "collisionTolerance": 0,
   "swfPrecision": 2.525,
   "bbox_left": 0,
-  "bbox_right": 91,
-  "bbox_top": 7,
-  "bbox_bottom": 92,
+  "bbox_right": 99,
+  "bbox_top": 1,
+  "bbox_bottom": 99,
   "HTile": false,
   "VTile": false,
   "For3D": false,
@@ -24,15 +24,15 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"b273384f-b498-4820-94cf-8a7cb6558db6","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"b273384f-b498-4820-94cf-8a7cb6558db6","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":{"name":"8d9c4107-bc81-4c74-b752-2a40137d1466","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"sRiviereCourantCroisementVersDroite","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"b273384f-b498-4820-94cf-8a7cb6558db6","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"a17a00b5-4793-4003-97d6-e1dbf9d70411","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"a17a00b5-4793-4003-97d6-e1dbf9d70411","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":{"name":"8d9c4107-bc81-4c74-b752-2a40137d1466","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"sRiviereCourantCroisementVersDroite","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"a17a00b5-4793-4003-97d6-e1dbf9d70411","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"03fdbe9a-222b-46b4-b19a-61780d3b386e","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"03fdbe9a-222b-46b4-b19a-61780d3b386e","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":{"name":"8d9c4107-bc81-4c74-b752-2a40137d1466","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"sRiviereCourantCroisementVersDroite","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"03fdbe9a-222b-46b4-b19a-61780d3b386e","tags":[],"resourceType":"GMSpriteFrame",},
+    {"compositeImage":{"FrameId":{"name":"70358d44-b2cc-4175-b9bb-968ee62807ec","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
+        {"FrameId":{"name":"70358d44-b2cc-4175-b9bb-968ee62807ec","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":{"name":"8d9c4107-bc81-4c74-b752-2a40137d1466","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
+      ],"parent":{"name":"sRiviereCourantCroisementVersDroite","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"70358d44-b2cc-4175-b9bb-968ee62807ec","tags":[],"resourceType":"GMSpriteFrame",},
+    {"compositeImage":{"FrameId":{"name":"39f3bee4-1c35-4436-ace0-6622a60eab0d","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
+        {"FrameId":{"name":"39f3bee4-1c35-4436-ace0-6622a60eab0d","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":{"name":"8d9c4107-bc81-4c74-b752-2a40137d1466","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
+      ],"parent":{"name":"sRiviereCourantCroisementVersDroite","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"39f3bee4-1c35-4436-ace0-6622a60eab0d","tags":[],"resourceType":"GMSpriteFrame",},
+    {"compositeImage":{"FrameId":{"name":"5e1f09ea-9a3a-43f6-9027-398ba7873c2b","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
+        {"FrameId":{"name":"5e1f09ea-9a3a-43f6-9027-398ba7873c2b","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"LayerId":{"name":"8d9c4107-bc81-4c74-b752-2a40137d1466","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
+      ],"parent":{"name":"sRiviereCourantCroisementVersDroite","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","name":"5e1f09ea-9a3a-43f6-9027-398ba7873c2b","tags":[],"resourceType":"GMSpriteFrame",},
   ],
   "sequence": {
     "spriteId": {"name":"sRiviereCourantCroisementVersDroite","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},
@@ -47,9 +47,9 @@
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
       {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
-            {"id":"62dba291-9348-4c15-9a0a-80cfc9b42041","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"b273384f-b498-4820-94cf-8a7cb6558db6","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-            {"id":"c052ad5d-a460-4ed3-8cc7-431d8b62d579","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"a17a00b5-4793-4003-97d6-e1dbf9d70411","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-            {"id":"ec8648fa-1c38-4241-b59e-f10a6815523c","Key":2.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"03fdbe9a-222b-46b4-b19a-61780d3b386e","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"cc8d82e6-e18b-4d98-8a47-73698326c5e5","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"70358d44-b2cc-4175-b9bb-968ee62807ec","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"91857ef2-f60f-4b6c-b94a-217f05af7e5d","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"39f3bee4-1c35-4436-ace0-6622a60eab0d","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"1bfe69ff-ea9d-4a08-a1d5-0e4ac4b10f49","Key":2.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"5e1f09ea-9a3a-43f6-9027-398ba7873c2b","path":"sprites/sRiviereCourantCroisementVersDroite/sRiviereCourantCroisementVersDroite.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
     ],
     "visibleRange": null,

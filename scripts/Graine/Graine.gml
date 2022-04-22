@@ -1,5 +1,15 @@
 #macro NB_GRAINE 4
 
+#macro CAROTTE_DUREE 20 // En secondes
+#macro CAROTTE_ENERGIE 30
+#macro POIREAU_DUREE 10
+#macro POIREAU_ENERGIE 10
+#macro COURGE_DUREE 30
+#macro COURGE_ENERGIE 50
+#macro CANNABIS_DUREE 10
+#macro CANNABIS_ENERGIE -100
+
+
 enum GRAINE_STATE
 {
 	VIDE,
@@ -25,15 +35,6 @@ function GraineInit()
 	stateMachine[2] = GraineStatePousseFin
 	stateMachine[3] = GraineStateMaturite;
 	stateMachine[4] = GraineStateCoupe;
-	
-	var _idTerreau = irandom(2)
-	
-	switch (_idTerreau)
-	{
-		case 0: sprite_index = sGraineTerreau1; break;
-		case 1: sprite_index = sGraineTerreau2; break;
-		case 2: sprite_index = sGraineTerreau3; break;
-	}
 }
 
 function GraineUpdate()
@@ -44,6 +45,13 @@ function GraineUpdate()
 
 function GraineStateVide()
 {
+	switch (irandom(2))
+	{
+		case 0: sprite_index = sGraineTerreau1; break;
+		case 1: sprite_index = sGraineTerreau2; break;
+		case 2: sprite_index = sGraineTerreau3; break;
+	}
+	
 	var _idGraine = irandom(NB_GRAINE - 1);
 	
 	switch (_idGraine)
@@ -51,29 +59,29 @@ function GraineStateVide()
 		case TYPE_GRAINE.CAROTTE:
 			spritePousse = sGraineCarottePousse;
 			spriteMaturite = sGraineCarotteMaturite;
-			duree = 180;
-			scoring = 30;
+			duree = CAROTTE_DUREE;
+			energie = CAROTTE_ENERGIE;
 			break;
 			
 		case TYPE_GRAINE.POIREAU:
 			spritePousse = sGrainePoireauPousse;
 			spriteMaturite = sGrainePoireauMaturite;
-			duree = 60;
-			scoring = 20;
+			duree = POIREAU_DUREE;
+			energie = POIREAU_ENERGIE;
 			break;
 			
 		case TYPE_GRAINE.COURGE:
 			spritePousse = sGraineCourge1;
 			spriteMaturite = sGraineCourge2;
-			duree = 180;
-			scoring = 30;
+			duree = COURGE_DUREE;
+			energie = COURGE_ENERGIE;
 			break;
 			
 		case TYPE_GRAINE.CANABIS:
 			spritePousse = sGraineCanabis1;
 			spriteMaturite = sGraineCanabis2;
-			duree = 180;
-			scoring = -50;
+			duree = CANNABIS_DUREE;
+			energie = CANNABIS_ENERGIE;
 			break;
 	}
 	
@@ -139,7 +147,7 @@ function GraineStateMaturite()
 
 function GraineStateCoupe()
 {
-	
+	sprite_index = sVide;
 }
 
 function GraineDraw()
@@ -163,9 +171,8 @@ function GraineMouseLeftPressed()
 		audio_play_sound(sndCoupe, 10, false);
 	}
 	else if (IsState(GRAINE_STATE.MATURITE))
-	{		
-		oControl.scoring += scoring;
-		oControl.scoring = clamp(oControl.scoring, 0, infinity);
+	{
+		EnergieAdd(energie);
 		
 		SetState(GRAINE_STATE.COUPE);
 		

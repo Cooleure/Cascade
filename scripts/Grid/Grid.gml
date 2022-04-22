@@ -29,7 +29,7 @@ function GridDraw(_gameGrid, _size)
 	{
 		for (var _j = 0; _j < ds_grid_height(_gameGrid); _j++)
 		{
-			draw_text(_i * _size, _j * _size, GetState(ds_grid_get(_gameGrid, _i, _j)));
+			draw_text(_i * _size, _j * _size, object_get_name(ds_grid_get(_gameGrid, _i, _j).object_index));
 		}
 	}
 }
@@ -80,3 +80,4 @@ function GridGetVoisins(_x, _y)
 	
 	return _voisins;
 }
+
